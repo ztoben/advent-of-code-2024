@@ -1,4 +1,6 @@
-# advent-of-code-2024
+## This is a repository for the [Advent of Code 2024](https://adventofcode.com/2024) challenge.
+
+Each directory will have its own `index.ts` file that will run the solution for that day, along with any input files and the puzzle itself in a text file.
 
 To install dependencies:
 
