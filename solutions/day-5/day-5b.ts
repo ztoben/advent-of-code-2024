@@ -8,7 +8,6 @@ export default async function () {
     const rules = rulesText.split('\n').filter(Boolean);
 
     const invalidInputs: string[][] = [];
-    let total = 0;
 
     inputs.forEach((input: string[]) => {
         if (!isValid(input, rules)) {
@@ -18,12 +17,10 @@ export default async function () {
 
     const validInputs: string[][] = invalidInputs.map(input => makeInputValid(input, rules));
 
-    validInputs.forEach((input: string[]) => {
+    return validInputs.reduce((sum, input) => {
         const center = Math.floor(input.length / 2);
-        total += parseInt(input[center]);
-    })
-
-    return total;
+        return sum + parseInt(input[center]);
+    }, 0);
 }
 
 function makeInputValid(input: string[], rules: string[]): string[] {
@@ -40,10 +37,10 @@ function makeInputValid(input: string[], rules: string[]): string[] {
         const [num1, num2] = rule.split('|');
 
         if (newInput.includes(num1) && newInput.includes(num2)) {
-            if (newInput.indexOf(num1) > newInput.indexOf(num2)) {
-                const num1Index = newInput.indexOf(num1);
-                const num2Index = newInput.indexOf(num2);
+            const num1Index = newInput.indexOf(num1);
+            const num2Index = newInput.indexOf(num2);
 
+            if (num1Index > num2Index) {
                 newInput[num1Index] = num2;
                 newInput[num2Index] = num1;
 
