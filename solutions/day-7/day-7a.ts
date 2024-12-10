@@ -48,12 +48,16 @@ function evaluateInput(input: string): string {
     const instructions = input.split(' ');
     let total = 0;
 
-    let operator = '+';
+    let currentOperator = '+';
     for (const instruction of instructions) {
-        if (instruction === '+' || instruction === '*') {
-            operator = instruction;
+        if (USABLE_OPERATORS.includes(instruction)) {
+            currentOperator = instruction;
         } else {
-            total = operator === '+' ? total + parseInt(instruction) : total * parseInt(instruction);
+            if (currentOperator === '+') {
+                total += parseInt(instruction);
+            } else if (currentOperator === '*') {
+                total *= parseInt(instruction);
+            }
         }
     }
 

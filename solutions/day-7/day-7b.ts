@@ -50,7 +50,7 @@ function evaluateInput(input: string): string {
 
     let operator = '+';
     for (const instruction of instructions) {
-        if (instruction === '+' || instruction === '*' || instruction === '||') {
+        if (USABLE_OPERATORS.includes(instruction)) {
             operator = instruction;
         } else {
             if (operator === '+') {
