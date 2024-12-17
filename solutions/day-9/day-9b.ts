@@ -6,9 +6,6 @@ export default async function () {
     const mergedBlockMap: string[][] = mergeBlockMap(blockMap);
     const compressedBlockMap = compressBlockMap(mergedBlockMap);
 
-    console.log(blockMap.join(''));
-    console.log(compressedBlockMap);
-
     let total = 0;
     let processedIndex = 0;
 
@@ -50,10 +47,10 @@ function buildBlockMap(input: string[]): string[] {
 }
 
 function compressBlockMap(mergedBlockMap: string[][]): string[][] {
-    const blockMapWithCombinedEmptySpace: string[][] = mergeSpaces(mergedBlockMap);
+    let blockMapWithCombinedEmptySpace: string[][] = mergeSpaces(mergedBlockMap);
     let lowestNumberCompressed = 999999999999999;
 
-    for (let blockToCompressIndex = blockMapWithCombinedEmptySpace.length - 1; blockToCompressIndex >= 0; blockToCompressIndex--) {
+    for (let blockToCompressIndex = Math.min(blockMapWithCombinedEmptySpace.length - 1, blockMapWithCombinedEmptySpace.length - 1); blockToCompressIndex >= 0; blockToCompressIndex--) {
         const blockToCompress = blockMapWithCombinedEmptySpace[blockToCompressIndex];
 
         if (blockToCompress.includes('.')) {
@@ -82,6 +79,12 @@ function compressBlockMap(mergedBlockMap: string[][]): string[][] {
         if (excessEmptySpace > 0) {
             blockMapWithCombinedEmptySpace.splice(emptyBlockIndex + 1, 0, new Array(excessEmptySpace).fill('.'));
             blockToCompressIndex += (excessEmptySpace - 1);
+        }
+
+        blockMapWithCombinedEmptySpace = mergeSpaces(blockMapWithCombinedEmptySpace);
+
+        if (excessEmptySpace > 0) {
+            blockToCompressIndex = Math.min(blockToCompressIndex + 1, blockMapWithCombinedEmptySpace.length - 1);
         }
     }
 
