@@ -14,4 +14,10 @@ To run:
 bun run index.ts
 ```
 
+To run a specific day:
+
+```bash
+bun run index.ts --day 1 --part a
+```
+
 This project was created using `bun init` in bun v1.1.38. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
